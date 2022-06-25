@@ -23,13 +23,19 @@ export function Form() {
           onChange={handleChange}
         />
         {errors.email && <h3>{errors.email}</h3>}
-        <input minLength={8} type="password" name="password" placeholder="password" onChange={handleChange} />
-        {errors.password && <h3>{errors.password}</h3>}
         <input
+          minLength={10}
+          value={values.phone}
+          type="tel"
+          name="phone"
+          placeholder="(123)-(456)-(7891)"
+          onChange={handleChange}
+        />
+        {errors.phone && <h3>{errors.phone}</h3>}
+        <input
+          autoComplete="off"
           type="text"
-          minLength={5}
-          value={values.username.toUpperCase()}
-          required
+          value={values.username}
           name="username"
           placeholder="username"
           onChange={handleChange}
