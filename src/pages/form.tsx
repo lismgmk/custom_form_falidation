@@ -9,7 +9,7 @@ export function Form() {
   };
 
   const { handleChange, values, errors, handleSubmit } = useForm(formLogin);
-  console.log(errors, 'form');
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit} noValidate>

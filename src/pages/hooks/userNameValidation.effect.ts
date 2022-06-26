@@ -10,8 +10,10 @@ export const useUserNameValidation = () => {
 
   const [errorSurNameMin, setErrorSurNameMin] = useState<string>('');
   const [errorSurNameMax, setErrorSurNameMax] = useState<string>('');
-
   const countUserName = (value: string) => {
+    if (value === '') {
+      setErrorNameMin('min limit name ');
+    }
     if (/^$|^[a-zA-Z\s]+$/.test(value)) {
       const newValue = value.replace(/ +(?= )/g, '').split('');
 

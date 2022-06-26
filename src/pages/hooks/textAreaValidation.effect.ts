@@ -12,6 +12,9 @@ export const useTextAreaValidation = () => {
     if (value.trim().length <= minLength) {
       setErrorTextArea(`Enter ${minLength} and more symbols`);
     }
+    if (value === '') {
+      setErrorTextArea(`Enter  more then ${minLength} and less ${maxLength} then  symbols`);
+    }
     if (value.trim().length >= maxLength) {
       setErrorTextArea(`Enter less then ${maxLength} symbols`);
     }

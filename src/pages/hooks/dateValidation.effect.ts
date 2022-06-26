@@ -8,13 +8,16 @@ export const useDateValidation = () => {
   const [date, setDate] = useState<string>('');
 
   const [errorDate, setErrorDate] = useState<string>('');
-
   const countDate = (value: string) => {
-    setDate(value);
-    if (new Date(value).valueOf() > maxValidDate.valueOf()) {
+    if (value === '') {
       setErrorDate('Enter valid Date less then 2015');
     } else {
-      setErrorDate('');
+      if (new Date(value).valueOf() > maxValidDate.valueOf()) {
+        setErrorDate('Enter valid Date less then 2015');
+      } else {
+        setErrorDate('');
+      }
+      setDate(value);
     }
   };
   return {

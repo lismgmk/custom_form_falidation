@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import { Form } from "./pages/Form";
+import { Form } from './pages/form';
 
 ReactDOM.render(
   <React.StrictMode>
