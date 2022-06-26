@@ -1,7 +1,6 @@
-import useForm from './Hooks/useForm';
+import useForm from './hooks/useForm';
 import React from 'react';
-import './app.scss';
-import InputMask from './Hooks/inputMusk';
+import './form.scss';
 
 export function Form() {
   const formLogin = () => {
@@ -10,21 +9,30 @@ export function Form() {
   };
 
   const { handleChange, values, errors, handleSubmit } = useForm(formLogin);
-
+  console.log(errors, 'form');
   return (
     <div className="App">
       <form onSubmit={handleSubmit} noValidate>
         <input
+          autoComplete="off"
+          type="text"
+          value={values.username}
+          name="username"
+          placeholder="USERNAME SURNAME"
+          onChange={handleChange}
+        />
+        {errors.username && <h3>{errors.username}</h3>}
+        <input
           type="email"
-          // autocomplete="off"
+          autoComplete={'off'}
           name="email"
-          placeholder="E-mail"
+          placeholder="example@mail.com"
           value={values.email}
           onChange={handleChange}
         />
         {errors.email && <h3>{errors.email}</h3>}
         <input
-          minLength={10}
+          autoComplete={'off'}
           value={values.phone}
           type="tel"
           name="phone"
@@ -33,17 +41,18 @@ export function Form() {
         />
         {errors.phone && <h3>{errors.phone}</h3>}
         <input
-          autoComplete="off"
-          type="text"
-          value={values.username}
-          name="username"
-          placeholder="username"
+          type="date"
+          min="1920-01-01"
+          max="2016-12-31"
+          name="date-birth"
+          value={values.date}
           onChange={handleChange}
         />
-        {errors.username && <h3>{errors.username}</h3>}
+        {errors.date && <h3>{errors.date}</h3>}
+        <textarea rows={10} cols={50} name="textarea" value={values.textArea} onChange={handleChange} />
+        {errors.textArea && <h3>{errors.textArea}</h3>}
         <input type="submit" value="Submit" className="submit" />
       </form>
-      <InputMask />
     </div>
   );
 }

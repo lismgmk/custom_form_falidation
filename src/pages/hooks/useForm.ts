@@ -2,11 +2,15 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { useUserNameValidation } from './userNameValidation.effect';
 import { useEmailValidation } from './emailValidation.effect';
 import { usePhoneValidation } from './phoneValidation.effect';
+import { useDateValidation } from './dateValidation.effect';
+import { useTextAreaValidation } from './textAreaValidation.effect';
 
 export interface IFields {
   email: string;
   username: string;
   phone: string;
+  date: string;
+  textArea: string;
 }
 
 const useForm = (callback: () => void) => {
@@ -14,6 +18,8 @@ const useForm = (callback: () => void) => {
     useUserNameValidation();
   const { email, errorEmail, countEmail } = useEmailValidation();
   const { phone, errorPhone, countPhone } = usePhoneValidation();
+  const { date, errorDate, countDate } = useDateValidation();
+  const { textArea, errorTextArea, countTextArea } = useTextAreaValidation();
 
   useEffect(() => {
     setValues({ ...values, username: userNameSurName });
@@ -21,16 +27,26 @@ const useForm = (callback: () => void) => {
   }, [userNameSurName]);
 
   useEffect(() => {
-    setValues({ ...values, email: email });
+    setValues({ ...values, email });
     setErrors({ ...errors, email: errorEmail });
   }, [email]);
 
   useEffect(() => {
-    setValues({ ...values, phone: phone });
+    setValues({ ...values, phone });
     setErrors({ ...errors, phone: errorPhone });
   }, [phone]);
 
-  const initialState: IFields = { email: '', username: '', phone: '' };
+  useEffect(() => {
+    setValues({ ...values, date });
+    setErrors({ ...errors, date: errorDate });
+  }, [date]);
+
+  useEffect(() => {
+    setValues({ ...values, textArea });
+    setErrors({ ...errors, textArea: errorTextArea });
+  }, [textArea]);
+
+  const initialState: IFields = { email: '', username: '', phone: '', date: '', textArea: '' };
 
   const [values, setValues] = useState<IFields>(initialState);
   const [errors, setErrors] = useState<IFields>(initialState);
@@ -46,12 +62,18 @@ const useForm = (callback: () => void) => {
       case 'phone':
         countPhone(value);
         break;
+      case 'date-birth':
+        countDate(value);
+        break;
+      case 'textarea':
+        countTextArea(value);
+        break;
       default:
         break;
     }
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     event.persist();
 
     let name = event.target.name;
