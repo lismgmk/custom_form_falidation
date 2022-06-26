@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
 export const useUserNameValidation = () => {
+  const minLimitLength = 3;
+  const maxLimitLength = 30;
   const [userNameSurName, setUserNameSurName] = useState<string>('');
 
   const [errorNameMin, setErrorNameMin] = useState<string>('');
@@ -10,7 +12,6 @@ export const useUserNameValidation = () => {
   const [errorSurNameMax, setErrorSurNameMax] = useState<string>('');
 
   const countUserName = (value: string) => {
-    console.log(value, 'value!!!!!!!');
     if (/^$|^[a-zA-Z\s]+$/.test(value)) {
       const newValue = value.replace(/ +(?= )/g, '').split('');
 
@@ -33,41 +34,46 @@ export const useUserNameValidation = () => {
         value.split('').forEach((el) => firstPart.push(el));
       }
 
-      if (firstPart.length < 3 && secondPart.length < 4) {
+      if (firstPart.length <= minLimitLength && secondPart.length <= minLimitLength + 1) {
         setErrorNameMin('min limit name ');
         setErrorSurNameMin('and min limit surname');
       }
 
-      if (firstPart.length < 3 && secondPart.length > 4) {
+      if (firstPart.length <= minLimitLength && secondPart.length >= minLimitLength + 1) {
         setErrorNameMin('min limit name ');
       }
-      if (firstPart.length > 3 && secondPart.length < 4) {
+      if (firstPart.length >= minLimitLength && secondPart.length <= minLimitLength + 1) {
         setErrorSurNameMin('and min limit surname');
       }
 
-      if (firstPart.length > 30 && secondPart.length > 31) {
+      if (firstPart.length >= maxLimitLength && secondPart.length >= maxLimitLength + 1) {
         setErrorNameMax('max limit name ');
         setErrorSurNameMax('max limit surname');
       }
 
-      if (firstPart.length > 30 && secondPart.length < 31) {
+      if (firstPart.length >= maxLimitLength && secondPart.length <= maxLimitLength + 1) {
         setErrorNameMax('max limit name ');
       }
-      if (firstPart.length < 30 && secondPart.length > 31) {
+      if (firstPart.length <= maxLimitLength && secondPart.length >= maxLimitLength + 1) {
         setErrorSurNameMax('max limit surname');
       }
 
-      if (firstPart.length > 3 && secondPart.length > 4 && firstPart.length < 30 && secondPart.length < 31) {
+      if (
+        firstPart.length >= minLimitLength &&
+        secondPart.length >= minLimitLength + 1 &&
+        firstPart.length <= maxLimitLength &&
+        secondPart.length <= maxLimitLength + 1
+      ) {
         setErrorNameMax('');
         setErrorSurNameMax('');
         setErrorNameMin('');
         setErrorSurNameMin('');
       }
-      if (secondPart.length > 4 && secondPart.length < 31) {
+      if (secondPart.length >= minLimitLength + 1 && secondPart.length <= maxLimitLength + 1) {
         setErrorSurNameMax('');
         setErrorSurNameMin('');
       }
-      if (firstPart.length > 3 && firstPart.length < 30) {
+      if (firstPart.length >= minLimitLength && firstPart.length <= maxLimitLength) {
         setErrorNameMax('');
         setErrorNameMin('');
       }
