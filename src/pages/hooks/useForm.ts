@@ -15,8 +15,7 @@ export interface IFields {
 
 const useForm = (callback: () => void) => {
   const initialState: IFields = { email: '', username: '', phone: '', date: '', textArea: '' };
-  const { userNameSurName, errorSurNameMax, errorSurNameMin, errorNameMax, errorNameMin, countUserName } =
-    useUserNameValidation();
+  const { userNameSurName, errorName, countUserName } = useUserNameValidation();
   const { email, errorEmail, countEmail } = useEmailValidation();
   const { phone, errorPhone, countPhone } = usePhoneValidation();
   const { date, errorDate, countDate } = useDateValidation();
@@ -24,47 +23,25 @@ const useForm = (callback: () => void) => {
   const [values, setValues] = useState<IFields>(initialState);
   const [errors, setErrors] = useState<IFields>(initialState);
 
-  const [toggleSubmit, setToggle] = useState(false);
-
   useEffect(() => {
     setErrors({
       email: errorEmail,
-      username: errorNameMin,
+      username: errorName,
       phone: errorPhone,
       date: errorDate,
       textArea: errorTextArea,
     });
-    if (toggleSubmit && Object.values(errors).join('') === '') {
-      alert('++++++++++++++++++++++++++');
-      setToggle(false);
-    }
-    setToggle(false);
-  }, [errorNameMin, errorEmail, errorPhone, errorDate, errorTextArea, toggleSubmit]);
+  }, [errorName, errorEmail, errorPhone, errorDate, errorTextArea]);
 
   useEffect(() => {
-    setValues({ ...values, username: userNameSurName });
-    setErrors({ ...errors, username: `${errorSurNameMax} ${errorSurNameMin} ${errorNameMax} ${errorNameMin}`.trim() });
-  }, [userNameSurName]);
-
-  useEffect(() => {
-    setValues({ ...values, email });
-    setErrors({ ...errors, email: errorEmail });
-  }, [email]);
-
-  useEffect(() => {
-    setValues({ ...values, phone });
-    setErrors({ ...errors, phone: errorPhone });
-  }, [phone]);
-
-  useEffect(() => {
-    setValues({ ...values, date });
-    setErrors({ ...errors, date: errorDate });
-  }, [date]);
-
-  useEffect(() => {
-    setValues({ ...values, textArea });
-    setErrors({ ...errors, textArea: errorTextArea });
-  }, [textArea]);
+    setValues({
+      email,
+      username: userNameSurName,
+      phone,
+      date,
+      textArea,
+    });
+  }, [userNameSurName, email, phone, date, textArea]);
 
   const validateValues = (name: string, value: string) => {
     switch (name) {
@@ -104,7 +81,7 @@ const useForm = (callback: () => void) => {
     countPhone(values.phone);
     countDate(values.date);
     countTextArea(values.textArea);
-    Object.values(values).join('') !== '' && setToggle(true);
+    callback();
   };
 
   return {
@@ -112,6 +89,7 @@ const useForm = (callback: () => void) => {
     errors,
     handleChange,
     handleSubmit,
+    setValues,
   };
 };
 

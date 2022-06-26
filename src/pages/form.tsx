@@ -4,11 +4,24 @@ import './form.scss';
 
 export function Form() {
   const formLogin = () => {
-    console.log('Callback function when form is submitted!');
-    console.log('Form Values ', values);
+    if (
+      errors.phone === '' &&
+      errors.email === '' &&
+      errors.username === '' &&
+      errors.date === '' &&
+      errors.textArea === '' &&
+      values.email !== '' &&
+      values.phone !== '' &&
+      values.date !== '' &&
+      values.username !== '' &&
+      values.textArea !== ''
+    ) {
+      alert('!!!!!!');
+      setValues({ email: '', username: '', phone: '', date: '', textArea: '' });
+    }
   };
 
-  const { handleChange, values, errors, handleSubmit } = useForm(formLogin);
+  const { handleChange, values, errors, handleSubmit, setValues } = useForm(formLogin);
 
   return (
     <div className="App">

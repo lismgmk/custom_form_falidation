@@ -11,7 +11,7 @@ export const usePhoneValidation = () => {
       setPhone(!x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : ''));
     }
     if (value.length < 15) {
-      setErrorPhone('Enter valid phone');
+      setErrorPhone('Введите полный номер');
     }
     if (value.length === 14) {
       setErrorPhone('');

@@ -1,24 +1,22 @@
 import { useState } from 'react';
+import { maxLengthTextArea, minLengthTextArea } from '../../constants/settingsForm';
 
 export const useTextAreaValidation = () => {
-  const minLength: number = 10;
-  const maxLength: number = 300;
-
   const [textArea, setTextArea] = useState<string>('');
 
   const [errorTextArea, setErrorTextArea] = useState<string>('');
 
   const countTextArea = (value: string) => {
-    if (value.trim().length <= minLength) {
-      setErrorTextArea(`Enter ${minLength} and more symbols`);
+    if (value.trim().length <= minLengthTextArea) {
+      setErrorTextArea(`Увеличьте количество символов до ${minLengthTextArea} `);
     }
     if (value === '') {
-      setErrorTextArea(`Enter  more then ${minLength} and less ${maxLength} then  symbols`);
+      setErrorTextArea(`Введите от ${minLengthTextArea} до ${maxLengthTextArea} символов `);
     }
-    if (value.trim().length >= maxLength) {
-      setErrorTextArea(`Enter less then ${maxLength} symbols`);
+    if (value.trim().length >= maxLengthTextArea) {
+      setErrorTextArea(`Уменьшите количество символов до ${maxLengthTextArea}`);
     }
-    if (value.trim().length >= minLength && value.trim().length <= maxLength) {
+    if (value.trim().length >= minLengthTextArea && value.trim().length <= maxLengthTextArea) {
       setErrorTextArea('');
     }
     setTextArea(value);

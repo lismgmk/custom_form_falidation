@@ -1,19 +1,14 @@
 import { useState } from 'react';
+import { maxLengthWorld, minLengthWorld } from '../../constants/settingsForm';
 
+type TypeHelperObj = { errorNameMin: string; errorNameMax: string; errorSurNameMin: string; errorSurNameMax: string };
 export const useUserNameValidation = () => {
-  const minLimitLength = 3;
-  const maxLimitLength = 30;
   const [userNameSurName, setUserNameSurName] = useState<string>('');
+  const [errorName, setErrorName] = useState<string>('');
 
-  const [errorNameMin, setErrorNameMin] = useState<string>('');
-  const [errorNameMax, setErrorNameMax] = useState<string>('');
+  const helperObj: TypeHelperObj = { errorNameMin: '', errorNameMax: '', errorSurNameMin: '', errorSurNameMax: '' };
 
-  const [errorSurNameMin, setErrorSurNameMin] = useState<string>('');
-  const [errorSurNameMax, setErrorSurNameMax] = useState<string>('');
   const countUserName = (value: string) => {
-    if (value === '') {
-      setErrorNameMin('min limit name ');
-    }
     if (/^$|^[a-zA-Z\s]+$/.test(value)) {
       const newValue = value.replace(/ +(?= )/g, '').split('');
 
@@ -35,50 +30,38 @@ export const useUserNameValidation = () => {
       } else {
         value.split('').forEach((el) => firstPart.push(el));
       }
-
-      if (firstPart.length <= minLimitLength && secondPart.length <= minLimitLength + 1) {
-        setErrorNameMin('min limit name ');
-        setErrorSurNameMin('and min limit surname');
+      if (firstPart.length <= minLengthWorld && secondPart.length <= minLengthWorld + 1) {
+        helperObj.errorNameMin = `Увеличьте количество символов в имени до ${minLengthWorld} `;
+        helperObj.errorSurNameMin = `Увеличьте количество символов в фамилии до ${minLengthWorld}`;
       }
 
-      if (firstPart.length <= minLimitLength && secondPart.length >= minLimitLength + 1) {
-        setErrorNameMin('min limit name ');
+      if (firstPart.length <= minLengthWorld && secondPart.length >= minLengthWorld + 1) {
+        helperObj.errorNameMin = `Увеличьте количество символов в имени до ${minLengthWorld} `;
       }
-      if (firstPart.length >= minLimitLength && secondPart.length <= minLimitLength + 1) {
-        setErrorSurNameMin('and min limit surname');
-      }
-
-      if (firstPart.length >= maxLimitLength && secondPart.length >= maxLimitLength + 1) {
-        setErrorNameMax('max limit name ');
-        setErrorSurNameMax('max limit surname');
+      if (firstPart.length >= minLengthWorld && secondPart.length <= minLengthWorld + 1) {
+        helperObj.errorSurNameMin = `Увеличьте количество символов в фамилии до ${minLengthWorld}`;
       }
 
-      if (firstPart.length >= maxLimitLength && secondPart.length <= maxLimitLength + 1) {
-        setErrorNameMax('max limit name ');
-      }
-      if (firstPart.length <= maxLimitLength && secondPart.length >= maxLimitLength + 1) {
-        setErrorSurNameMax('max limit surname');
+      if (firstPart.length >= maxLengthWorld && secondPart.length >= maxLengthWorld + 1) {
+        helperObj.errorNameMax = `Уменьшите количество символов в имени до ${maxLengthWorld} `;
+        helperObj.errorSurNameMax = `Уменьшите количество символов в фамилии до ${maxLengthWorld}`;
       }
 
-      if (
-        firstPart.length >= minLimitLength &&
-        secondPart.length >= minLimitLength + 1 &&
-        firstPart.length <= maxLimitLength &&
-        secondPart.length <= maxLimitLength + 1
-      ) {
-        setErrorNameMax('');
-        setErrorSurNameMax('');
-        setErrorNameMin('');
-        setErrorSurNameMin('');
+      if (firstPart.length >= maxLengthWorld && secondPart.length <= maxLengthWorld + 1) {
+        helperObj.errorNameMax = `Уменьшите количество символов в имени до ${maxLengthWorld} `;
       }
-      if (secondPart.length >= minLimitLength + 1 && secondPart.length <= maxLimitLength + 1) {
-        setErrorSurNameMax('');
-        setErrorSurNameMin('');
+      if (firstPart.length <= maxLengthWorld && secondPart.length >= maxLengthWorld + 1) {
+        helperObj.errorSurNameMax = `Уменьшите количество символов в фамилии до ${maxLengthWorld}`;
       }
-      if (firstPart.length >= minLimitLength && firstPart.length <= maxLimitLength) {
-        setErrorNameMax('');
-        setErrorNameMin('');
+      if (secondPart.length >= minLengthWorld + 1 && secondPart.length <= maxLengthWorld + 1) {
+        helperObj.errorSurNameMax = '';
+        helperObj.errorSurNameMin = '';
       }
+      if (firstPart.length >= minLengthWorld && firstPart.length <= maxLengthWorld) {
+        helperObj.errorNameMin = '';
+        helperObj.errorNameMax = '';
+      }
+      setErrorName(Object.values(helperObj).join('').trim());
       const result = firstPart.concat(secondPart).join('').toUpperCase();
       setUserNameSurName(result);
     }
@@ -86,10 +69,7 @@ export const useUserNameValidation = () => {
 
   return {
     userNameSurName,
-    errorSurNameMax,
-    errorSurNameMin,
-    errorNameMax,
-    errorNameMin,
+    errorName,
     countUserName,
   };
 };

@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { minAge } from '../../constants/settingsForm';
 
 export const useDateValidation = () => {
-  const minAge: number = 7;
   const maxValidDate = new Date();
   maxValidDate.setFullYear(maxValidDate.getFullYear() - minAge);
 
@@ -10,15 +10,15 @@ export const useDateValidation = () => {
   const [errorDate, setErrorDate] = useState<string>('');
   const countDate = (value: string) => {
     if (value === '') {
-      setErrorDate('Enter valid Date less then 2015');
+      setErrorDate(`Выберите валидую дату, ( не ранее ${maxValidDate.getFullYear()} года)`);
     } else {
       if (new Date(value).valueOf() > maxValidDate.valueOf()) {
-        setErrorDate('Enter valid Date less then 2015');
+        setErrorDate(`Выберите валидую дату, ( не ранее ${maxValidDate.getFullYear()} года)`);
       } else {
         setErrorDate('');
       }
-      setDate(value);
     }
+    setDate(value);
   };
   return {
     date,

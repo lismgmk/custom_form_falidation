@@ -11,7 +11,7 @@ export const useEmailValidation = () => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
       ).test(value)
     ) {
-      setErrorEmail('Enter a valid email address');
+      setErrorEmail('Введите валидный Email');
     } else {
       setErrorEmail('');
     }
