@@ -1,2 +1,3 @@
-# react-typescript-eslint-webpack
-Webpack template for a React app with TypeScript and ESLint
+Сервер находится во втором репозитории  
+Для теста ошибки от сервера нужно послать номер телефона (000)-000-000
+

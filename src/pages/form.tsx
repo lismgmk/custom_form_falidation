@@ -122,7 +122,7 @@ export function Form() {
           </div>
           <div className="form-control">
             <label htmlFor="username">Сообщение</label>
-            <textarea rows={7} cols={40} name="textarea" value={values.textArea} onChange={handleChange} />
+            <textarea rows={5} cols={40} name="textarea" value={values.textArea} onChange={handleChange} />
             {errors.textArea && <small>{errors.textArea}</small>}
           </div>
 
