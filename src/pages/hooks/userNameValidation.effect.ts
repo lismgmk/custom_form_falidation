@@ -64,6 +64,8 @@ export const useUserNameValidation = () => {
       setErrorName(Object.values(helperObj).join('').trim());
       const result = firstPart.concat(secondPart).join('').toUpperCase();
       setUserNameSurName(result);
+    } else {
+      setErrorName('Вводить только латиницу и один пробел');
     }
   };
 
