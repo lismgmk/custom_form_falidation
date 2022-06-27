@@ -10,10 +10,10 @@ export const useDateValidation = () => {
   const [errorDate, setErrorDate] = useState<string>('');
   const countDate = (value: string) => {
     if (value === '') {
-      setErrorDate(`Выберите валидую дату, ( не ранее ${maxValidDate.getFullYear()} года)`);
+      setErrorDate(`Выберите валидую дату, ( не ранее ${maxValidDate.getFullYear()}/${maxValidDate.getMonth()})`);
     } else {
       if (new Date(value).valueOf() > maxValidDate.valueOf()) {
-        setErrorDate(`Выберите валидую дату, ( не ранее ${maxValidDate.getFullYear()} года)`);
+        setErrorDate(`Выберите валидую дату, ( не ранее ${maxValidDate.getFullYear()}/${maxValidDate.getMonth()})`);
       } else {
         setErrorDate('');
       }

@@ -1,4 +1,4 @@
-import useForm from './hooks/useForm';
+import useForm, { IFields } from './hooks/useForm';
 import React, { useEffect, useState } from 'react';
 import './form.scss';
 
@@ -15,20 +15,11 @@ export function Form() {
       clearTimeout(timeId);
     };
   }, [show]);
-
+  function finishValidate(obj: IFields, err: boolean) {
+    return err ? new Set(Object.values(obj)).size === 1 : new Set(Object.values(obj)).size > 1;
+  }
   const formLogin = async () => {
-    if (
-      errors.phone === '' &&
-      errors.email === '' &&
-      errors.username === '' &&
-      errors.date === '' &&
-      errors.textArea === '' &&
-      values.email !== '' &&
-      values.phone !== '' &&
-      values.date !== '' &&
-      values.username !== '' &&
-      values.textArea !== ''
-    ) {
+    if (finishValidate(errors, true) && finishValidate(values, false)) {
       try {
         setLoad(true);
         const response = await fetch('https://simple-express-inc.herokuapp.com/form', {
