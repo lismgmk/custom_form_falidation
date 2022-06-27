@@ -63,60 +63,67 @@ export function Form() {
       )}
       <div className="container">
         <form className="form" onSubmit={handleSubmit} noValidate>
-          <div className="form-control">
-            <label htmlFor="username">Имя фамилия</label>
-            <input
-              autoComplete="off"
-              type="text"
-              value={values.username}
-              name="username"
-              placeholder="ИМЯ ФАМИЛИЯ"
-              onChange={handleChange}
-            />
-            {errors.username && <small>{errors.username}</small>}
+          <div className={'inputs-container'}>
+            <div className={'inputs-item'}>
+              <div className="form-control">
+                <label htmlFor="username">Имя фамилия</label>
+                <input
+                  autoComplete="off"
+                  type="text"
+                  value={values.username}
+                  name="username"
+                  placeholder="ИМЯ ФАМИЛИЯ"
+                  onChange={handleChange}
+                />
+                {errors.username && <small>{errors.username}</small>}
+              </div>
+              <div className="form-control">
+                <label htmlFor="username">Электронная почта</label>
+                <input
+                  type="email"
+                  autoComplete={'off'}
+                  name="email"
+                  placeholder="example@mail.com"
+                  value={values.email}
+                  onChange={handleChange}
+                />
+                {errors.email && <small>{errors.email}</small>}
+              </div>
+            </div>
+            <div className={'inputs-item'}>
+              <div className="form-control">
+                <label htmlFor="username">Телефон</label>
+                <input
+                  autoComplete={'off'}
+                  value={values.phone}
+                  type="tel"
+                  name="phone"
+                  placeholder="(123)-(456)-(7891)"
+                  onChange={handleChange}
+                />
+                {errors.phone && <small>{errors.phone}</small>}
+              </div>
+              <div className="form-control">
+                <label htmlFor="username">Дата рождения</label>
+                <input
+                  type="date"
+                  min="1920-01-01"
+                  max="2016-12-31"
+                  name="date-birth"
+                  value={values.date}
+                  onChange={handleChange}
+                />
+                {errors.date && <small>{errors.date}</small>}
+              </div>
+            </div>
           </div>
-          <div className="form-control">
-            <label htmlFor="username">Электронная почта</label>
-            <input
-              type="email"
-              autoComplete={'off'}
-              name="email"
-              placeholder="example@mail.com"
-              value={values.email}
-              onChange={handleChange}
-            />
-            {errors.email && <small>{errors.email}</small>}
+          <div className={'inputs-item'}>
+            <div className="form-control">
+              <label htmlFor="username">Сообщение</label>
+              <textarea rows={5} cols={40} name="textarea" value={values.textArea} onChange={handleChange} />
+              {errors.textArea && <small>{errors.textArea}</small>}
+            </div>
           </div>
-          <div className="form-control">
-            <label htmlFor="username">Телефон</label>
-            <input
-              autoComplete={'off'}
-              value={values.phone}
-              type="tel"
-              name="phone"
-              placeholder="(123)-(456)-(7891)"
-              onChange={handleChange}
-            />
-            {errors.phone && <small>{errors.phone}</small>}
-          </div>
-          <div className="form-control">
-            <label htmlFor="username">Дата рождения</label>
-            <input
-              type="date"
-              min="1920-01-01"
-              max="2016-12-31"
-              name="date-birth"
-              value={values.date}
-              onChange={handleChange}
-            />
-            {errors.date && <small>{errors.date}</small>}
-          </div>
-          <div className="form-control">
-            <label htmlFor="username">Сообщение</label>
-            <textarea rows={5} cols={40} name="textarea" value={values.textArea} onChange={handleChange} />
-            {errors.textArea && <small>{errors.textArea}</small>}
-          </div>
-
           {load ? (
             <button>Идет отправка...</button>
           ) : (

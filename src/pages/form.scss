@@ -5,7 +5,7 @@
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-  width: 400px;
+  width: 700px;
 }
 
 h2{
@@ -15,11 +15,21 @@ h2{
 
 .form{
   padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+}
+.inputs-container{
+  display: grid;
+  grid-template-columns: 1fr 0.4fr;
+  grid-template-rows: auto ;
+}
+.inputs-item{
+  padding: 0px 10px;
 }
 
 .form-control{
   margin-bottom: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 27px;
   position: relative;
 }
 
